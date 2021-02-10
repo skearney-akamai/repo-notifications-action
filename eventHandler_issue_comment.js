@@ -12,6 +12,7 @@ function handler(e) {
     case 'edited':
         subject = `${a.format_front(e)} changed a comment on issue ${a.format_issue(e)}`;
         message = `${a.format_front_html(e)} changed a <a href="${a.comment_url(e)}">comment</a> on issue ${a.format_issue_html(e)}`;
+        break;
     case 'deleted':
         subject = `${a.format_front(e)} removed a comment on issue ${a.format_issue(e)}`;
         message = `${a.format_front_html(e)} removed a <a href="${a.comment_url(e)}">comment</a> on issue ${a.format_issue_html(e)}`;
