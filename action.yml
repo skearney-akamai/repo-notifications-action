@@ -1,0 +1,16 @@
+name: 'Repository Notifications'
+description: 'Generates notification messages about different events in the repository'
+inputs:
+  event:
+    description: 'The JSON serialization of the event'
+    required: true
+    default: ''
+outputs:
+  subject: 
+    description: 'The subject of the message - this will be in plain text format and quite short'
+  message: 
+    description: 'The actual message - this will be several lines, containing HTML formatting, including links'
+runs:
+  using: 'node12'
+  main: 'index.js'
+
