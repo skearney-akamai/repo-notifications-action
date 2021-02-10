@@ -1,4 +1,5 @@
 const core = require('@actions/core');
+const eh = require('./eventHandlers.js');
 
 function printEnv(name) {
     core.info(`${name}: ${process.env[name]}`);
@@ -29,6 +30,13 @@ async function run() {
       printEnv('GITHUB_SERVER_URL');
       printEnv('GITHUB_API_URL');
       printEnv('GITHUB_GRAPHQL_URL');
+
+      const handler = eh.handlerFor(process.env.GITHUB_EVENT_NAME);
+      if (handler) {
+          handler(event);
+      } else {
+          core.warn(`No event handler configured for ${process.env.GITHUB_EVENT_NAME}`);
+      }
   } catch (error) {
     core.setFailed(error.message);
   }
