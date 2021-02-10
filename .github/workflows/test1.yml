@@ -1,7 +1,5 @@
 name: Testing integration
 
-# on: [check_run, check_suite, create, delete, deployment, deployment_status, fork, gollum, issue_comment, issues, label, milestone, page_build, project, project_card, project_column, public, pull_request, pull_request_review, pull_request_review_comment, pull_request_target, push, registry_package, release, status, watch, workflow_run]
-
 # jobs:
 #   test:
 #     runs-on: ubuntu-16.04
@@ -11,7 +9,9 @@ name: Testing integration
 #       #   with:
 #       #     event: ${{ toJson(github.event) }}
 
-on: [check_run, check_suite, create, delete, deployment, deployment_status, fork, gollum, issue_comment, issues, label, milestone, page_build, project, project_card, project_column, public, pull_request, pull_request_review, pull_request_review_comment, pull_request_target, push, registry_package, release, status, watch, workflow_run]
+#on: [check_run, check_suite, create, delete, deployment, deployment_status, fork, gollum, issue_comment, issues, label, milestone, page_build, project, project_card, project_column, public, pull_request, pull_request_review, pull_request_review_comment, pull_request_target, push, registry_package, release, status, watch, workflow_run]
+
+on: [check_run, check_suite, create, delete, deployment, deployment_status, fork, gollum, issue_comment, issues, label, milestone, page_build, project, project_card, project_column]
 
 jobs:
   test:
