@@ -8,7 +8,7 @@ const allHandlers = {
     // deployment_status
     // fork
     // gollum
-    // issue_comment
+    issue_comment: require('./eventHandler_issue_comment.js'),
     issues: require('./eventHandler_issues.js'),
     // label
     // milestone
