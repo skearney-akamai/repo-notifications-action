@@ -33,9 +33,13 @@ async function run() {
 
       const handler = eh.handlerFor(process.env.GITHUB_EVENT_NAME);
       if (handler) {
-          handler(event);
+          const result = handler(event);
+          core.setOutput('subject', result.subject);
+          core.setOutput('message', result.message);
       } else {
-          core.warn(`No event handler configured for ${process.env.GITHUB_EVENT_NAME}`);
+          core.warning(`No event handler configured for ${process.env.GITHUB_EVENT_NAME}`);
+          core.setOutput('subject', '');
+          core.setOutput('message', '');
       }
   } catch (error) {
     core.setFailed(error.message);
