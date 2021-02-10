@@ -34,6 +34,8 @@ async function run() {
       const handler = eh.handlerFor(process.env.GITHUB_EVENT_NAME);
       if (handler) {
           const result = handler(event);
+          core.info(result.subject);
+          core.info(result.message);
           core.setOutput('subject', result.subject);
           core.setOutput('message', result.message);
       } else {
