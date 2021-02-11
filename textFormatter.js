@@ -1,6 +1,14 @@
 
 const formatter = {
     format_link: function(link, text) {
+        if (link === '') {
+            return `${text}`;
+        }
+
+        if (text === '') {
+            return `${link}`;
+        }
+            
         return `${text} (${link})`;
     },
 

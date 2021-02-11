@@ -1,6 +1,9 @@
 
 const formatter = {
     format_link: function(link, text) {
+        if (text === '') {
+            return this.format_link(link, link);
+        }
         return `<a href="${link}">${text}</a>`;
     },
 
