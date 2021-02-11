@@ -3,7 +3,7 @@ const a = require('./eventAccessors.js');
 
 // 40 zeroes
 const emptyRef = "0000000000000000000000000000000000000000";
-const refNameReg = /\Arefs\/(heads|tags)\//;
+const refNameReg = /^refs\/(heads|tags)\//;
 
 const isCreated = e => e.before === emptyRef;
 const isDeleted = e => e.after === emptyRef;
