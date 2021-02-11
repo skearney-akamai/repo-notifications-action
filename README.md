@@ -21,13 +21,18 @@ jobs:
    runs-on: ubuntu-latest
    steps:
      - name: calculate message
-       uses: olabiniV2/repo-notifications-action@v0.0.1
+       uses: olabiniV2/repo-notifications-action@v0.0.2
        id: messages
        with:
           event: ${{ toJson(github.event) }}
      - run: echo ${{ steps.messages.outputs.subject }} 
      - run: echo ${{ steps.messages.outputs.message }} 
 ```
+
+In certain environments, escaping is necessary. This is most obvious in the case of Matrix, where even though HTML
+format is used for messages, certain Markdown syntax is also interpreted. This is fine when it happens in commit
+messages or issue titles, but not so fine when it shows up in label names, milestone names and ref names. If you have
+this problem, you can set the argument `escape` to the value `matrix`, and this should be automatically fixed.
 
 
 ## Support

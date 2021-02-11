@@ -1,10 +1,10 @@
 const a = require('./eventAccessors.js');
 
-const pageLink = (page, formatter) => formatter.format_link(page.html_url, page.page_name);
-const calculatePageChange = (page, formatter) => `${pageLink(page, formatter)} was ${page.action}`;
+const pageLink = (page, formatter, esc) => formatter.format_link(page.html_url, esc(page.page_name));
+const calculatePageChange = (page, formatter, esc) => `${pageLink(page, formatter, esc)} was ${page.action}`;
 
-const calculatePageChanges = (pages, formatter) => {
-    const newPages = pages.map(val => calculatePageChange(val, formatter));
+const calculatePageChanges = (pages, formatter, esc) => {
+    const newPages = pages.map(val => calculatePageChange(val, formatter, esc));
     if (newPages.length < 2) {
         return newPages[0] || 'no pages updated';
     }
@@ -21,8 +21,8 @@ const calculatePageChanges = (pages, formatter) => {
     return result;
 };
 
-module.exports = (e, {subjectFormatter: sf, messageFormatter: mf}) => {
-    const pages = calculatePageChanges(e.pages, mf);
+module.exports = (e, {subjectFormatter: sf, messageFormatter: mf, escaper: esc}) => {
+    const pages = calculatePageChanges(e.pages, mf, esc);
     let subject = `${sf.format_front(e, a)} created or modified one or more wiki pages`;
     let message = `${mf.format_front(e, a)} modified these pages: ${pages}`;
 

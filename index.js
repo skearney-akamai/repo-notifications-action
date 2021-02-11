@@ -8,10 +8,26 @@ const htmlFormat = require('./htmlFormatter.js');
 //     core.info(`${name}: ${process.env[name]}`);
 // };
 
+const getEscaper = e => {
+    const esc = e.toLowerCase();
+    if (esc === 'no' || esc === 'none' || esc === '') {
+        return v => v;
+    }
+
+    if (esc === 'matrix' || esc === 'element' || esc === 'riot') {
+        return require('./matrixEscaper.js');
+    }
+
+    core.warning(`Couldn't find escaper for value '${e}'`);
+    return v => v;
+};
+
 const run = async () => {
   try {
       const eventS = core.getInput('event');
       const event = JSON.parse(eventS);
+
+      const escape = core.getInput('escape');
 
       // core.info(eventS);
 
@@ -36,8 +52,7 @@ const run = async () => {
 
       const handler = eh.handlerFor(process.env.GITHUB_EVENT_NAME);
       if (handler) {
-          // The first formatter is for the subject, and the second is for the message
-          const result = handler(event, {subjectFormatter: textFormat, messageFormatter: htmlFormat, escaper: v => v});
+          const result = handler(event, {subjectFormatter: textFormat, messageFormatter: htmlFormat, escaper: getEscaper(escape)});
           core.info(result.subject);
           core.info(result.message);
           core.setOutput('subject', result.subject);

@@ -5,6 +5,10 @@ inputs:
     description: 'The JSON serialization of the event'
     required: true
     default: ''
+  escape:
+    description: 'Whether certain variables, such as refs, should be escaped. Only one escaper exists right now, which can by chosen by the value "matrix". The other value is "no".'
+    require: false
+    default: 'no'
 outputs:
   subject: 
     description: 'The subject of the message - this will be in plain text format and quite short'
