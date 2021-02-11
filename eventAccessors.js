@@ -47,22 +47,6 @@ const accessors = {
     comment_url: function(e) {
         return e.comment.html_url;
     },
-    
-    format_front: function(e) {
-        return `[${this.repo(e)}] ${this.sender(e)}`;
-    },
-
-    format_front_html: function(e) {
-        return `[<a href="${this.repo_url(e)}">${this.repo(e)}</a>] <a href="${this.sender_url(e)}">${this.sender(e)}</a>`;
-    },
-
-    format_issue: function(e) {
-        return `#${this.number(e)}`;
-    },
-
-    format_issue_html: function(e) {
-        return `<a href="${this.issue_url(e)}">#${this.number(e)}</a>: <i>${this.title(e)}</i>`;
-    },
 };
 
 module.exports = accessors;

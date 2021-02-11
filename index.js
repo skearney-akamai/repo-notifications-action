@@ -1,6 +1,9 @@
 const core = require('@actions/core');
 const eh = require('./eventHandlers.js');
 
+const textFormat = require('./textFormatter.js');
+const htmlFormat = require('./htmlFormatter.js');
+
 function printEnv(name) {
     core.info(`${name}: ${process.env[name]}`);
 }
@@ -33,7 +36,8 @@ async function run() {
 
       const handler = eh.handlerFor(process.env.GITHUB_EVENT_NAME);
       if (handler) {
-          const result = handler(event);
+          // The first formatter is for the subject, and the second is for the message
+          const result = handler(event, textFormat, htmlFormat);
           core.info(result.subject);
           core.info(result.message);
           core.setOutput('subject', result.subject);

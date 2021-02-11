@@ -1,17 +1,17 @@
 const a = require('./eventAccessors.js');
 
-function handler(e) {
+function handler(e, sf, mf) {
     let subject = '';
     let message = '';
 
     switch(e.ref_type) {
     case 'branch':
-        subject = `${a.format_front(e)} deleted the '${e.ref}' branch`;
-        message = `${a.format_front_html(e)} deleted the '${e.ref}' branch`;
+        subject = `${sf.format_front(e, a)} deleted the '${e.ref}' branch`;
+        message = `${mf.format_front(e, a)} deleted the '${e.ref}' branch`;
         break;
     case 'tag':
-        subject = `${a.format_front(e)} deleted the '${e.ref}' tag`;
-        message = `${a.format_front_html(e)} deleted the '${e.ref}' tag`;
+        subject = `${sf.format_front(e, a)} deleted the '${e.ref}' tag`;
+        message = `${mf.format_front(e, a)} deleted the '${e.ref}' tag`;
         break;
     }
 

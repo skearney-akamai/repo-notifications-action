@@ -16,13 +16,13 @@ const allHandlers = {
     // release - LATER
     // watch - LATER  
 
-    // fork - someone created a fork of our project
-    // gollum - when someone changed a wiki page
     // label - when a label was created or modified
     // milestone - when a milestone was modified in some way
+    // status - keeps track of the status of a specific commit
+    // fork - someone created a fork of our project
+    // gollum - when someone changed a wiki page
     // pull_request - someone created a pull request for the project
     // push - when commits are pushed
-    // status - keeps track of the status of a specific commit
     
     create: require('./eventHandler_create.js'),
     delete: require('./eventHandler_delete.js'),

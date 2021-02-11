@@ -1,21 +1,21 @@
 const a = require('./eventAccessors.js');
 
-function handler(e) {
+function handler(e, sf, mf) {
     let subject = '';
     let message = '';
 
     switch(e.action) {
     case 'created':
-        subject = `${a.format_front(e)} created a new comment on issue ${a.format_issue(e)}`;
-        message = `${a.format_front_html(e)} created a new <a href="${a.comment_url(e)}">comment</a> on issue ${a.format_issue_html(e)}`;
+        subject = `${sf.format_front(e, a)} created a new comment on issue ${sf.format_issue(e, a)}`;
+        message = `${mf.format_front(e, a)} created a new ${mf.format_link(a.comment_url(e), 'comment')} on issue ${mf.format_issue(e, a)}`;
         break;
     case 'edited':
-        subject = `${a.format_front(e)} changed a comment on issue ${a.format_issue(e)}`;
-        message = `${a.format_front_html(e)} changed a <a href="${a.comment_url(e)}">comment</a> on issue ${a.format_issue_html(e)}`;
+        subject = `${sf.format_front(e, a)} changed a comment on issue ${sf.format_issue(e, a)}`;
+        message = `${mf.format_front(e, a)} changed a ${mf.format_link(a.comment_url(e), 'comment')} on issue ${mf.format_issue(e, a)}`;
         break;
     case 'deleted':
-        subject = `${a.format_front(e)} removed a comment on issue ${a.format_issue(e)}`;
-        message = `${a.format_front_html(e)} removed a <a href="${a.comment_url(e)}">comment</a> on issue ${a.format_issue_html(e)}`;
+        subject = `${sf.format_front(e, a)} removed a comment on issue ${sf.format_issue(e, a)}`;
+        message = `${mf.format_front(e, a)} removed a ${mf.format_link(a.comment_url(e), 'comment')} on issue ${mf.format_issue(e, a)}`;
         break;
     }
 
