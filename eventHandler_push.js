@@ -1,3 +1,4 @@
+const core = require('@actions/core');
 const a = require('./eventAccessors.js');
 
 // 40 zeroes
@@ -8,7 +9,11 @@ const isCreated = e => e.before === emptyRef;
 const isDeleted = e => e.after === emptyRef;
 const isForced = e => e.forced;
 const isTag = e => ref(e).startsWith('refs/tags/');
-const ref = e => e.ref || '';
+const ref = e => {
+    core.info('we are returning this ref value:');
+    core.info(e.ref || '');
+    return e.ref || '';
+};
 const refName = e => ref(e).replaceAll(refNameReg, '');
 const baseRef = e => e.base_ref || '';
 const baseRefName = e => baseRef(e).replaceAll(refNameReg, '');
