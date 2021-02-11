@@ -63,7 +63,7 @@ const prettify = text => abbreviate(text, null, null, short => short.replace(/[[
 
 const formatCommitMessage = (e, commit, formatter) => {
     const author = commit.author ? commit.author.name : '';
-    return `${a.repository_name(e)}/${refName(e)} ${formatHash(commit.id)} ${author}: ${prettify(fullCommitMessage(commit))}`;
+    return formatter.format_link(commit.url, `${a.repository_short_name(e)}/${refName(e)} ${formatHash(commit.id)} ${author}: ${formatter.format_emphasis(prettify(fullCommitMessage(commit)))}`);
 };
 
 module.exports = (e, sf, mf) => {
@@ -119,7 +119,7 @@ module.exports = (e, sf, mf) => {
         message += ` pushed ${mf.format_number(l, 'new commit', 'new commits')} to ${refName(e)}`;
     }
 
-    message += `: ${mf.format_link(summaryUrl(e), 'check')}`;
+    message += `: ${mf.format_link(summaryUrl(e), 'summary')}`;
     message += mf.nl();
     message += mf.format_list(distinctCommits(e).map(commit => formatCommitMessage(e, commit, mf)));
 

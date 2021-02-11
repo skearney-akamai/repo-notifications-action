@@ -1,5 +1,6 @@
 
 const accessors = {
+    repository_short_name: e => e.repository.name,
     repository_name: e => e.repository.full_name,
     repo: e => accessors.repository_name(e),
     sender_name: e => e.sender.login,
