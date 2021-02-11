@@ -28,6 +28,7 @@ const allHandlers = {
     issues: require('./eventHandler_issues.js'),
     label: require('./eventHandler_label.js'),
     milestone: require('./eventHandler_milestone.js'),
+    status: require('./eventHandler_status.js'),
 };
 
 function handlerFor(name) {
