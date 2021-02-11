@@ -16,8 +16,6 @@ const allHandlers = {
     // release - LATER
     // watch - LATER  
 
-    // label - when a label was created or modified
-    // milestone - when a milestone was modified in some way
     // status - keeps track of the status of a specific commit
     // fork - someone created a fork of our project
     // gollum - when someone changed a wiki page
@@ -28,6 +26,8 @@ const allHandlers = {
     delete: require('./eventHandler_delete.js'),
     issue_comment: require('./eventHandler_issue_comment.js'),
     issues: require('./eventHandler_issues.js'),
+    label: require('./eventHandler_label.js'),
+    milestone: require('./eventHandler_milestone.js'),
 };
 
 function handlerFor(name) {
