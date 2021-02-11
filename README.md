@@ -21,7 +21,7 @@ jobs:
    runs-on: ubuntu-latest
    steps:
      - name: calculate message
-       uses: olabiniV2/repo-notifications-action@v0.0.2
+       uses: olabiniV2/repo-notifications-action@v0.0.3
        id: messages
        with:
           event: ${{ toJson(github.event) }}
