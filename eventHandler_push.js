@@ -1,4 +1,3 @@
-const core = require('@actions/core');
 const a = require('./eventAccessors.js');
 
 // 40 zeroes
