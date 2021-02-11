@@ -17,7 +17,7 @@ const formatter = {
     },
 
     format_issue: function(e, a) {
-        return `#${this.number(e)}`;
+        return `#${a.number(e)}`;
     },
 
     format_emphasis: function(txt) {
