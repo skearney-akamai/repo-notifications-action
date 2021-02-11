@@ -9,14 +9,10 @@ const isCreated = e => e.before === emptyRef;
 const isDeleted = e => e.after === emptyRef;
 const isForced = e => e.forced;
 const isTag = e => ref(e).startsWith('refs/tags/');
-const ref = e => {
-    core.info('we are returning this ref value:');
-    core.info(e.ref || '');
-    return e.ref || '';
-};
-const refName = e => ref(e).replaceAll(refNameReg, '');
+const ref = e => e.ref || '';
+const refName = e => ref(e).replace(refNameReg, '');
 const baseRef = e => e.base_ref || '';
-const baseRefName = e => baseRef(e).replaceAll(refNameReg, '');
+const baseRefName = e => baseRef(e).replace(refNameReg, '');
 
 const distinctCommits = e => e.distinct_commits ||
       e.commits.filter(commit =>
@@ -63,7 +59,7 @@ const abbreviate = (text, suffix, length, tr) => {
     return short;
 };
 
-const prettify = text => abbreviate(text, null, null, short => short.replaceAll(/[[:punct:]]+\z/, ''));
+const prettify = text => abbreviate(text, null, null, short => short.replace(/[[:punct:]]+\z/, ''));
 
 const formatCommitMessage = (e, commit, formatter) => {
     const author = commit.author ? commit.author.name : '';
