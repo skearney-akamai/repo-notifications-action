@@ -6,9 +6,8 @@ const formatter = {
             nm === 'htm';
     },
     nl: () => '<br/>',
-    format_list: entries => {
-        // we will use <ul> and <li> here
-    },
+    format_list: entries => `<ul>\n${entries.map(e => `  <li>${e}</li>\n`).join('')}</ul>\n`,
+
     format_link: (link, text) => {
         if (text === '') {
             return formatter.format_link(link, link);
@@ -22,6 +21,10 @@ const formatter = {
         return `${formatter.format_link(a.issue_url(e), txt)}: ${formatter.format_emphasis(a.title(e))}`;
     },
     format_emphasis: txt => `<i>${txt}</i>`,
+
+    format_number: (num, singular = '', plural = '') => {
+        return `<b>${num}</b> ${num === 1 ? singular : plural}`.trim();
+    },
 };
 
 module.exports = formatter;

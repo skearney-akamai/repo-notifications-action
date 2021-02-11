@@ -9,6 +9,7 @@ const isDeleted = e => e.after === emptyRef;
 const isForced = e => e.forced;
 const isTag = e => e.ref.startsWith('refs/tags/');
 const refName = e => e.ref.replaceAll(refNameReg, '');
+const baseRefName = e => e.base_ref.replaceAll(refNameReg, '');
 
 const distinctCommits = e => e.distinct_commits ||
       e.commits.filter(commit =>
@@ -63,13 +64,62 @@ const formatCommitMessage = (e, commit, formatter) => {
 };
 
 module.exports = (e, sf, mf) => {
-    let subject = `${sf.format_front(e, a)} `;
-    let message = `${mf.format_front(e, a)} `;
+    let subject = `${sf.format_front(e, a)}`;
+    let message = `${mf.format_front(e, a)}`;
 
+    if (isCreated(e)) {
+        if (isTag(e)) {
+            subject += ` tagged ${refName} at `;
+            message += ` tagged ${refName} at `;
 
+            if (e.base_ref) {
+                subject += baseRefName(e);
+                message += baseRefName(e);
+            } else {
+                subject += formatHash(e.after);
+                message += formatHash(e.after);
+            }
+        } else {
+            subject += ` created ${refName}`;
+            message += ` created ${refName}`;
+            
+            if (e.base_ref) {
+                subject += ` from ${baseRefName(e)}`;
+                message += ` from ${baseRefName(e)}`;
+            } else {
+                subject += ` at ${formatHash(e.after)}`;
+                message += ` at ${formatHash(e.after)}`;
+            }
 
+            const l = distinctCommits(e).length;
+            
+            subject += ` (+${sf.format_number(l, 'new commit', 'new commits')})`;
+            message += ` (+${mf.format_number(l, 'new commit', 'new commits')})`;
+        }
+    } else if (isDeleted(e)) {
+        subject += ` deleted ${refName(e)} at ${formatHash(e.before)}`;
+        message += ` deleted ${refName(e)} at ${formatHash(e.before)}`;
+    } else if (isForced(e)) {
+        subject += ` force-pushed ${refName(e)} from ${formatHash(e.before)} to ${formatHash(e.after)}`;
+        message += ` force-pushed ${refName(e)} from ${formatHash(e.before)} to ${formatHash(e.after)}`;
+    } else if (e.commits.length !== 0 && distinctCommits(e).length === 0) {
+        if (e.base_ref) {
+            subject += ` merged ${baseRefName(e)} into ${refName(e)}`;
+            message += ` merged ${baseRefName(e)} into ${refName(e)}`;
+        } else {
+            subject += ` fast-forwarded ${refName(e)} from ${formatHash(e.before)} to ${formatHash(e.after)}`;
+            message += ` fast-forwarded ${refName(e)} from ${formatHash(e.before)} to ${formatHash(e.after)}`;
+        }
+    } else {
+        const l = distinctCommits(e).length;
+        subject += ` pushed ${sf.format_number(l, 'new commit', 'new commits')} to ${refName(e)}`;
+        message += ` pushed ${mf.format_number(l, 'new commit', 'new commits')} to ${refName(e)}`;
+    }
 
-    
+    message += `: ${mf.format_link(summaryUrl(e), 'check')}`;
+    message += mf.nl();
+    message += mf.format_list(distinctCommits(e).map(commit => formatCommitMessage(e, commit, mf)));
+
     return {
         subject: subject,
         message: message,

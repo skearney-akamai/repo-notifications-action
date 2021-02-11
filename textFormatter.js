@@ -8,9 +8,8 @@ const formatter = {
 
     nl: () => "\n",
 
-    format_list: entries => {
-        // I think we will simply make this into a list with dashes
-    },
+    // This list formatter will start the list on the same line, so insert a newline before, if you need it
+    format_list: entries => entries.map(e => ` - ${e}${formatter.nl()}\n`).join(''),
     
     format_link: (link, text) => {
         if (link === '') {
@@ -35,6 +34,10 @@ const formatter = {
     format_front: (e, a) => `[${a.repo(e)}] ${a.sender(e)}`,
     format_issue: (e, a) => `#${a.number(e)}`,
     format_emphasis: txt => txt,
+
+    format_number: (num, singular = '', plural = '') => {
+        return `${num} ${num === 1 ? singular : plural}`.trim();
+    },
 };
 
 module.exports = formatter;
