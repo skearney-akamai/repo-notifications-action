@@ -1,52 +1,17 @@
 
 const accessors = {
-    repository_name: function(e) {
-        return e.repository.full_name;
-    },
-
-    repo: function(e) {
-        return this.repository_name(e);
-    },
-
-    sender_name: function(e) {
-        return e.sender.login;
-    },
-
-    sender: function(e) {
-        return this.sender_name(e);
-    },
-
-    number: function(e) {
-        return e.issue.number;
-    },
-
-    title: function(e) {
-        return e.issue.title;
-    },
-    
-    repo_url: function(e) {
-        return e.repository.html_url;
-    }, 
-
-    sender_url: function(e) {
-        return e.sender.html_url;
-    }, 
-
-    issue_url: function(e) {
-        return e.issue.html_url;
-    }, 
-
-    assignee: function(e) {
-        return e.assignee.login;
-    },
-
-    assignee_url: function(e) {
-        return e.assignee.html_url;
-    },
-
-    comment_url: function(e) {
-        return e.comment.html_url;
-    },
+    repository_name: e => e.repository.full_name,
+    repo: e => accessors.repository_name(e),
+    sender_name: e => e.sender.login,
+    sender: e => accessors.sender_name(e),
+    number: e => e.issue.number,
+    title: e => e.issue.title,
+    repo_url: e => e.repository.html_url,
+    sender_url: e => e.sender.html_url,
+    issue_url: e => e.issue.html_url,
+    assignee: e => e.assignee.login,
+    assignee_url: e => e.assignee.html_url,
+    comment_url: e => e.comment.html_url,
 };
 
 module.exports = accessors;

@@ -1,6 +1,6 @@
 const a = require('./eventAccessors.js');
 
-function handler(e, sf, mf) {
+module.exports = (e, sf, mf) => {
     let subject = '';
     let message = '';
 
@@ -31,6 +31,4 @@ function handler(e, sf, mf) {
         subject: subject,
         message: message,
     };
-}
-
-module.exports = handler;
+};

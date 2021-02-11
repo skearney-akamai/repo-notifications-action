@@ -1,21 +1,16 @@
 const a = require('./eventAccessors.js');
 
-function pageLink(page, formatter) {
-    return formatter.format_link(page.html_url, page.page_name);
-}
+const pageLink = (page, formatter) => formatter.format_link(page.html_url, page.page_name);
+const calculatePageChange = (page, formatter) => `${pageLink(page, formatter)} was ${page.action}`;
 
-function calculatePageChange(page, formatter) {
-    return `${pageLink(page, formatter)} was ${page.action}`;
-}
-    
-function calculatePageChanges(pages, formatter) {
-    const newPages = pages.map(function(val) { return calculatePageChange(val, formatter); });
+const calculatePageChanges = (pages, formatter) => {
+    const newPages = pages.map(val => calculatePageChange(val, formatter));
     if (newPages.length < 2) {
         return newPages[0] || 'no pages updated';
     }
     let result = '';
     const len = newPages.length;
-    newPages.forEach(function(page, ix) {
+    newPages.forEach((page, ix) => {
         if (ix === len-1) {
             result = `${result} and ${page}`;
         } else {
@@ -24,9 +19,9 @@ function calculatePageChanges(pages, formatter) {
     });
 
     return result;
-}
+};
 
-function handler(e, sf, mf) {
+module.exports = (e, sf, mf) => {
     const pages = calculatePageChanges(e.pages, mf);
     let subject = `${sf.format_front(e, a)} created or modified one or more wiki pages`;
     let message = `${mf.format_front(e, a)} modified these pages: ${pages}`;
@@ -35,6 +30,5 @@ function handler(e, sf, mf) {
         subject: subject,
         message: message,
     };
-}
+};
 
-module.exports = handler;

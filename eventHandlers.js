@@ -15,8 +15,6 @@ const allHandlers = {
     // registry_package - LATER
     // release - LATER
     // watch - LATER  
-
-    // push - when commits are pushed
     
     create: require('./eventHandler_create.js'),
     delete: require('./eventHandler_delete.js'),
@@ -27,11 +25,8 @@ const allHandlers = {
     label: require('./eventHandler_label.js'),
     milestone: require('./eventHandler_milestone.js'),
     pull_request: require('./eventHandler_pull_request.js'),
+    push: require('./eventHandler_push.js'),
     status: require('./eventHandler_status.js'),
 };
 
-function handlerFor(name) {
-    return allHandlers[name];
-}
-
-module.exports = {handlerFor: handlerFor};
+module.exports = {handlerFor: name => allHandlers[name]};

@@ -1,6 +1,18 @@
 
 const formatter = {
-    format_link: function(link, text) {
+    is: name => {
+        const nm = name.toLowerCase();
+        return nm === "text" ||
+            nm === "txt";
+    },
+
+    nl: () => "\n",
+
+    format_list: entries => {
+        // I think we will simply make this into a list with dashes
+    },
+    
+    format_link: (link, text) => {
         if (link === '') {
             return `${text}`;
         }
@@ -12,7 +24,7 @@ const formatter = {
         return `${text} (${link})`;
     },
 
-    format_link_simple: function(link, text) {
+    format_link_simple: (link, text) => {
         let out = text;
         if (out === '') {
             out = link;
@@ -20,17 +32,9 @@ const formatter = {
         return `${out}`;
     },
 
-    format_front: function(e, a) {
-        return `[${a.repo(e)}] ${a.sender(e)}`;
-    },
-
-    format_issue: function(e, a) {
-        return `#${a.number(e)}`;
-    },
-
-    format_emphasis: function(txt) {
-        return txt;
-    },
+    format_front: (e, a) => `[${a.repo(e)}] ${a.sender(e)}`,
+    format_issue: (e, a) => `#${a.number(e)}`,
+    format_emphasis: txt => txt,
 };
 
 module.exports = formatter;

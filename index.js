@@ -4,11 +4,11 @@ const eh = require('./eventHandlers.js');
 const textFormat = require('./textFormatter.js');
 const htmlFormat = require('./htmlFormatter.js');
 
-function printEnv(name) {
+const printEnv = name => {
     core.info(`${name}: ${process.env[name]}`);
-}
+};
 
-async function run() {
+const run = async () => {
   try {
       const eventS = core.getInput('event');
       const event = JSON.parse(eventS);
@@ -50,7 +50,6 @@ async function run() {
   } catch (error) {
     core.setFailed(error.message);
   }
-}
+};
 
 run();
-
