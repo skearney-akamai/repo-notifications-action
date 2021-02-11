@@ -16,7 +16,6 @@ const allHandlers = {
     // release - LATER
     // watch - LATER  
 
-    // pull_request - someone created a pull request for the project
     // push - when commits are pushed
     
     create: require('./eventHandler_create.js'),
@@ -27,6 +26,7 @@ const allHandlers = {
     issues: require('./eventHandler_issues.js'),
     label: require('./eventHandler_label.js'),
     milestone: require('./eventHandler_milestone.js'),
+    pull_request: require('./eventHandler_pull_request.js'),
     status: require('./eventHandler_status.js'),
 };
 
