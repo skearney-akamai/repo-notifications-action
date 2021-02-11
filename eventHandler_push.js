@@ -65,7 +65,7 @@ const formatCommitMessage = (e, commit, formatter) => {
     return formatter.format_link(commit.url, `${a.repository_short_name(e)}/${refName(e)} ${formatHash(commit.id)} ${author}: ${formatter.format_emphasis(prettify(fullCommitMessage(commit)))}`);
 };
 
-module.exports = (e, sf, mf) => {
+module.exports = (e, {subjectFormatter: sf, messageFormatter: mf}) => {
     let subject = `${sf.format_front(e, a)}`;
     let message = `${mf.format_front(e, a)}`;
 

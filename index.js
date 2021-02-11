@@ -37,7 +37,7 @@ const run = async () => {
       const handler = eh.handlerFor(process.env.GITHUB_EVENT_NAME);
       if (handler) {
           // The first formatter is for the subject, and the second is for the message
-          const result = handler(event, textFormat, htmlFormat);
+          const result = handler(event, {subjectFormatter: textFormat, messageFormatter: htmlFormat, escaper: v => v});
           core.info(result.subject);
           core.info(result.message);
           core.setOutput('subject', result.subject);

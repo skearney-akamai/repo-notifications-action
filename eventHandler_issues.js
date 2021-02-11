@@ -1,6 +1,6 @@
 const a = require('./eventAccessors.js');
 
-module.exports = (e, sf, mf) => {
+module.exports = (e, {subjectFormatter: sf, messageFormatter: mf}) => {
     let subject = '';
     let message = '';
     

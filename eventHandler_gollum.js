@@ -21,7 +21,7 @@ const calculatePageChanges = (pages, formatter) => {
     return result;
 };
 
-module.exports = (e, sf, mf) => {
+module.exports = (e, {subjectFormatter: sf, messageFormatter: mf}) => {
     const pages = calculatePageChanges(e.pages, mf);
     let subject = `${sf.format_front(e, a)} created or modified one or more wiki pages`;
     let message = `${mf.format_front(e, a)} modified these pages: ${pages}`;
