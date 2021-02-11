@@ -7,9 +7,11 @@ const refNameReg = /\Arefs\/(heads|tags)\//;
 const isCreated = e => e.before === emptyRef;
 const isDeleted = e => e.after === emptyRef;
 const isForced = e => e.forced;
-const isTag = e => e.ref.startsWith('refs/tags/');
-const refName = e => e.ref.replaceAll(refNameReg, '');
-const baseRefName = e => e.base_ref.replaceAll(refNameReg, '');
+const isTag = e => ref(e).startsWith('refs/tags/');
+const ref = e => e.ref || '';
+const refName = e => ref(e).replaceAll(refNameReg, '');
+const baseRef = e => e.base_ref || '';
+const baseRefName = e => baseRef(e).replaceAll(refNameReg, '');
 
 const distinctCommits = e => e.distinct_commits ||
       e.commits.filter(commit =>
@@ -69,8 +71,8 @@ module.exports = (e, sf, mf) => {
 
     if (isCreated(e)) {
         if (isTag(e)) {
-            subject += ` tagged ${refName} at `;
-            message += ` tagged ${refName} at `;
+            subject += ` tagged ${refName(e)} at `;
+            message += ` tagged ${refName(e)} at `;
 
             if (e.base_ref) {
                 subject += baseRefName(e);
@@ -80,8 +82,8 @@ module.exports = (e, sf, mf) => {
                 message += formatHash(e.after);
             }
         } else {
-            subject += ` created ${refName}`;
-            message += ` created ${refName}`;
+            subject += ` created ${refName(e)}`;
+            message += ` created ${refName(e)}`;
             
             if (e.base_ref) {
                 subject += ` from ${baseRefName(e)}`;
