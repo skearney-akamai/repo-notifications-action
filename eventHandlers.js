@@ -16,13 +16,13 @@ const allHandlers = {
     // release - LATER
     // watch - LATER  
 
-    // gollum - when someone changed a wiki page
     // pull_request - someone created a pull request for the project
     // push - when commits are pushed
     
     create: require('./eventHandler_create.js'),
     delete: require('./eventHandler_delete.js'),
     fork: require('./eventHandler_fork.js'),
+    gollum: require('./eventHandler_gollum.js'),
     issue_comment: require('./eventHandler_issue_comment.js'),
     issues: require('./eventHandler_issues.js'),
     label: require('./eventHandler_label.js'),
