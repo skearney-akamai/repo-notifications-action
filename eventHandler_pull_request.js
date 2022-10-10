@@ -23,7 +23,7 @@ module.exports = (e, {subjectFormatter: sf, messageFormatter: mf}) => {
     case 'unlocked':
     case 'reopened':
         subject = `${sf.format_front(e, a)} ${e.action} this pull request: ${sf.format_link(e.pull_request.html_url, "#" + e.pull_request.number)}`;
-        message = `${mf.format_front(e, a)} ${e.action} this pull request: ${mf.format_link(e.pull_request.html_url, "#" + e.pull_request.number)} - ${mf.format_emphasis(e.pull_request.title)}`;
+        message = `${mf.format_front(e, a)} ${e.action} this pull request: ${mf.format_link(e.pull_request.html_url, "#" + e.pull_request.number)} - ${mf.format_emphasis(e.pull_request.title)}.`;
         break;
     }
 
